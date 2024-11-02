@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
+import { SessionProvider } from "./components/SessionProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,18 +26,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="bg-green-600 flex gap-4 px-6">
-          <Link href="/" className="text-white">
-            Home
-          </Link>
-          <Link href="/about" className="text-white">
-            About
-          </Link>
-        </header>
-        {children}
-      </body>
-    </html>
+    <SessionProvider>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <header className="bg-green-600 flex gap-4 px-6">
+            <Link href="/" className="text-white">
+              Home
+            </Link>
+            <Link href="/about" className="text-white">
+              About
+            </Link>
+          </header>
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
